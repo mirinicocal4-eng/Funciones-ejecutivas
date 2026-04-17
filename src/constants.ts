@@ -14,6 +14,12 @@ export const GAMES = [
   ...PLANIFICACION_GAMES
 ];
 
+export const GRADES = [
+  'Infantil 3 años', 'Infantil 4 años', 'Infantil 5 años',
+  'Primaria 1º', 'Primaria 2º', 'Primaria 3º',
+  'Primaria 4º', 'Primaria 5º', 'Primaria 6º'
+] as const;
+
 export const METRICS: Metric[] = [
   { label: 'Tiempo de Reacción (TR)', description: 'Rapidez en detectar pistas y responder a los monstruos (clave en Atención e Inhibición).' },
   { label: 'Precisión del Investigador', description: 'Porcentaje de aciertos al identificar objetos mágicos o pistas reales.' },
