@@ -122,7 +122,10 @@ export default function App() {
                     <GameCard 
                       key={game.id} 
                       game={game} 
-                      onClick={() => setSelectedGame(game)} 
+                      onClick={() => {
+                        setSelectedGame(game);
+                        setIsPlaying(false);
+                      }} 
                     />
                   ))}
                 </AnimatePresence>
@@ -243,42 +246,49 @@ export default function App() {
                   <InfoItem label="Controles" value={selectedGame.controls} />
                 </div>
 
-                {!isPlaying && (
-                  <button 
-                    onClick={() => setIsPlaying(true)}
-                    className="w-full py-4 bg-accent hover:bg-accent/90 text-bg rounded-2xl font-black text-sm uppercase tracking-[3px] transition-all active:scale-95 shadow-xl shadow-accent/20 flex items-center justify-center gap-3"
-                  >
-                    <Play size={16} fill="currentColor" />
-                    Iniciar Misión
-                  </button>
-                )}
-
                 {/* Decorative background for the side panel */}
                 <div className="absolute top-1/2 left-0 w-64 h-64 bg-accent/20 blur-[100px] rounded-full -ml-32 -mt-32" />
               </div>
 
               {/* Game Stage Area */}
-              <div className="flex-1 bg-white relative">
+              <div className="flex-1 bg-white relative min-h-[500px] h-full">
                 {isPlaying ? (
                   <GameEngine 
                     game={selectedGame} 
-                    onExit={() => setIsPlaying(false)} 
+                    onExit={() => {
+                      setIsPlaying(false);
+                      setSelectedGame(null);
+                    }} 
                   />
                 ) : (
                   <div className="absolute inset-0 flex flex-col items-center justify-center p-12 text-center space-y-8">
-                     <div className="w-32 h-32 bg-slate-100 rounded-[2.5rem] flex items-center justify-center border-4 border-slate-200">
+                     <div className="w-32 h-32 bg-slate-100 rounded-[2.5rem] flex items-center justify-center border-4 border-slate-200 shadow-inner">
                         {(() => {
                            const Icon = ICON_MAP[selectedGame.icon] || Target;
                            return <Icon size={64} className="text-slate-300" />;
                         })()}
                      </div>
-                     <div className="space-y-4 max-w-sm">
-                        <h2 className="text-3xl font-serif font-black text-slate-800 uppercase tracking-tight">Sala de Briefing</h2>
-                        <p className="text-slate-400 font-medium">Prepara tu mente para el desafío. Revisa la mecánica y los controles a tu izquierda antes de saltar a la aventura.</p>
+                     <div className="space-y-4 max-w-lg">
+                        <h2 className="text-5xl font-serif font-black text-slate-800 uppercase tracking-tight">Preparado</h2>
+                        <div className="p-6 bg-accent/5 rounded-3xl border border-accent/10">
+                          <p className="text-[10px] font-black text-accent uppercase tracking-[4px] mb-2">Instrucciones de la Misión</p>
+                          <p className="text-slate-600 font-medium leading-relaxed text-lg italic">
+                            {selectedGame.gameplay}
+                          </p>
+                          <div className="mt-4 pt-4 border-t border-accent/10 flex items-center justify-center gap-2 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                            <Target size={12} /> {selectedGame.controls}
+                          </div>
+                        </div>
                      </div>
-                     <div className="flex gap-2">
-                        {[1, 2, 3].map(i => <div key={i} className="w-2 h-2 rounded-full bg-slate-200" />)}
-                     </div>
+
+                     <button 
+                        onClick={() => setIsPlaying(true)}
+                        className="group relative px-10 py-5 bg-accent hover:bg-accent/90 text-white rounded-2xl font-black text-sm uppercase tracking-[4px] transition-all hover:scale-105 active:scale-95 shadow-2xl shadow-accent/40 flex items-center gap-4 overflow-hidden"
+                      >
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+                        <Play size={20} fill="currentColor" />
+                        Iniciar Misión
+                      </button>
                   </div>
                 )}
               </div>

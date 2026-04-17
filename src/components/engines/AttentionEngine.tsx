@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import Pictogram from '../Pictogram';
 import { GameDefinition } from '../../types';
 
@@ -100,10 +100,10 @@ export default function AttentionEngine({ game, isPrimary, onScoreChange, onGame
   };
 
   return (
-    <div className={`relative w-full h-full border-4 border-accent-2/20 rounded-[2.5rem] flex items-center justify-center overflow-hidden transition-colors ${
-      gameId.includes('bosque') ? 'bg-green-900/10' : 
-      gameId.includes('manzanas') ? 'bg-red-50/20' : 
-      gameId.includes('cronista') ? 'bg-amber-50/20' : 'bg-[#fdfcf8]'
+    <div className={`relative w-full h-full flex items-center justify-center overflow-hidden transition-colors ${
+      gameId.includes('bosque') ? 'bg-green-900/5' : 
+      gameId.includes('manzanas') ? 'bg-red-50/10' : 
+      gameId.includes('cronista') ? 'bg-amber-50/10' : 'bg-[#fdfcf8]'
     }`}>
       {/* Scene Decorations */}
       {gameId.includes('bosque') && <Pictogram term="tree" size={200} className="absolute bottom-0 right-0 opacity-10 -rotate-12 translate-x-12 translate-y-12 pointer-events-none" />}
@@ -113,8 +113,8 @@ export default function AttentionEngine({ game, isPrimary, onScoreChange, onGame
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/notebook.png')]" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,99,33,0.03)_0%,transparent_80%)]" />
       
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-[10px] font-serif italic text-accent uppercase tracking-[4px] bg-white/90 px-8 py-3 rounded-2xl border-2 border-accent/10 backdrop-blur-sm shadow-2xl z-20">
-        LA MISIÓN DEL DÍA: {
+      <div className="absolute top-6 left-1/2 -translate-x-1/2 text-[11px] font-black text-accent uppercase tracking-[6px] opacity-40 select-none z-10 text-center pointer-events-none">
+        {
           gameId.includes('bosque') ? 'BUSCA AL GRÚFALO' : 
           gameId.includes('manzanas') ? 'MANZANAS ROJAS' : 
           gameId.includes('hadas') ? 'POLVO DE ESTRELLAS' : 
@@ -123,13 +123,14 @@ export default function AttentionEngine({ game, isPrimary, onScoreChange, onGame
           gameId.includes('cartas') ? 'SELLOS REALES' :
           gameId.includes('mapa') ? 'ERRORES EN NARNIA' :
           gameId.includes('escritor') ? 'HUELLAS AZULES' :
-          gameId.includes('cronista') ? 'INTRUSOS MODERNOS' : 'OBJETOS MÁGICOS'
+          gameId.includes('cronista') ? 'INTRUSOS MODERNOS' : 'JUEGO DE ATENCIÓN'
         }
       </div>
 
-      {shapes.map(shape => (
-        <motion.div
-          key={shape.id}
+      <AnimatePresence>
+        {shapes.map(shape => (
+          <motion.div
+            key={shape.id}
           initial={{ scale: 0, opacity: 0, rotate: -20 }}
           animate={{ scale: 1, opacity: 1, rotate: 0 }}
           exit={{ scale: 1.5, opacity: 0, rotate: 20 }}
@@ -175,6 +176,7 @@ export default function AttentionEngine({ game, isPrimary, onScoreChange, onGame
           })()}
         </motion.div>
       ))}
+      </AnimatePresence>
     </div>
   );
 }

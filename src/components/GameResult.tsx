@@ -42,13 +42,13 @@ export default function GameResult({ status, score, onRetry, onExit }: GameResul
       <div className="flex flex-col w-full max-w-[240px] gap-3 mt-4">
         <button 
           onClick={onRetry}
-          className="py-3 bg-accent text-bg font-bold rounded-xl text-xs uppercase tracking-widest hover:bg-accent/90 transition-all active:scale-95 shadow-lg shadow-accent/20"
+          className="py-3 bg-accent text-white font-bold rounded-xl text-xs uppercase tracking-widest hover:bg-accent/90 transition-all active:scale-95 shadow-lg shadow-accent/20"
         >
           Reintentar Aventura
         </button>
         <button 
           onClick={onExit}
-          className="py-3 bg-slate-800 text-text font-bold rounded-xl text-xs uppercase tracking-widest hover:bg-slate-700 transition-all active:scale-95"
+          className="py-3 bg-slate-800 text-white font-bold rounded-xl text-xs uppercase tracking-widest hover:bg-slate-700 transition-all active:scale-95"
         >
           Volver al Mapa
         </button>

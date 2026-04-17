@@ -95,7 +95,7 @@ export default function PlanningEngine({ game, isPrimary, onScoreChange, onGameE
   return (
     <div className="flex flex-col md:flex-row gap-12 items-center justify-center w-full max-w-4xl h-full">
       {/* Target Area (Tower) */}
-      <div className="flex-1 w-full max-w-[300px] h-[400px] bg-slate-800/20 rounded-[3rem] border-4 border-dashed border-slate-700 flex flex-col-reverse items-center p-6 gap-2 relative overflow-hidden group">
+      <div className="flex-1 w-full max-w-[340px] h-[450px] bg-slate-900/5 rounded-[4rem] border-2 border-slate-200 flex flex-col-reverse items-center p-8 gap-3 relative overflow-hidden group shadow-inner">
         <div className="absolute inset-0 bg-gradient-to-t from-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
         <AnimatePresence>
           {placedBlocks.map((block, idx) => (

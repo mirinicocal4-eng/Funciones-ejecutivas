@@ -17,12 +17,15 @@ export default function InhibitionEngine({ game, isPrimary, onScoreChange, onGam
   const [clickFeedback, setClickFeedback] = useState<{ id: any, type: 'correct' | 'incorrect' } | null>(null);
   const [internalScore, setInternalScore] = useState(0);
 
+  const [hasCounted, setHasCounted] = useState(false);
+
   const gameId = game.id;
 
   useEffect(() => {
     const interval = setInterval(() => {
       const nextState = Math.random() > 0.4;
       setInhibTarget(nextState ? 'go' : 'stop');
+      setHasCounted(false); // Reset when target flips
       
       if (gameId.includes('tinta')) {
         const colors = [
@@ -41,7 +44,7 @@ export default function InhibitionEngine({ game, isPrimary, onScoreChange, onGam
   useEffect(() => {
     if (gameId.includes('contrario') || gameId.includes('tinta')) return;
 
-    if (isPressing) {
+    if (isPressing && !hasCounted) {
       if (inhibTarget === 'stop') {
         setClickFeedback({ id: 'inhibition', type: 'incorrect' });
         setTimeout(() => onGameEnd('lost'), 500);
@@ -49,10 +52,11 @@ export default function InhibitionEngine({ game, isPrimary, onScoreChange, onGam
         const nextScore = internalScore + 1;
         setInternalScore(nextScore);
         onScoreChange(nextScore);
+        setHasCounted(true);
         if (nextScore >= (isPrimary ? 15 : 6)) onGameEnd('won');
       }
     }
-  }, [isPressing, inhibTarget]);
+  }, [isPressing, inhibTarget, hasCounted]);
 
   const handleInhibClick = (target: string) => {
     // Stroop or Contrary
@@ -120,13 +124,13 @@ export default function InhibitionEngine({ game, isPrimary, onScoreChange, onGam
           <p className="text-xs font-serif font-bold text-text-dim uppercase tracking-[2px]">TOCA EL COLOR DE LA TINTA, NO LA PALABRA</p>
         </div>
       ) : gameId.includes('contrario') ? (
-        <div className="flex flex-col items-center gap-12 text-center">
-          <div className="p-8 bg-white/90 rounded-[2.5rem] shadow-2xl border-b-[8px] border-slate-200 min-w-[200px]">
-            <p className="text-xs font-black text-accent uppercase tracking-[4px] mb-4">EL HADA DICE:</p>
-            <h3 className="text-6xl font-black text-slate-800 uppercase tracking-tight">
-              {inhibTarget === 'sun' ? 'NOCHE' : 'DÍA'}
-            </h3>
-          </div>
+          <div className="flex flex-col items-center gap-6 text-center">
+            <div className="px-10 py-6 bg-slate-900/5 rounded-[3rem] border border-slate-200 min-w-[240px] shadow-inner">
+              <p className="text-[10px] font-black text-accent uppercase tracking-[4px] mb-2 opacity-60">EL HADA SUSURRA:</p>
+              <h3 className="text-5xl font-black text-slate-800 uppercase tracking-tight">
+                {inhibTarget === 'sun' ? 'NOCHE' : 'DÍA'}
+              </h3>
+            </div>
           
           <div className="flex gap-16">
             <motion.button

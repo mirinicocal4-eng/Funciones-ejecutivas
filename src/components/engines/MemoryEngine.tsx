@@ -34,7 +34,7 @@ export default function MemoryEngine({ game, isPrimary, onScoreChange, onGameEnd
     if (sequence.length === 0) {
       const initialSeq = Array.from({ length: 2 }, () => Math.floor(Math.random() * (isPrimary ? 6 : 4)));
       setSequence(initialSeq);
-      playSequence(initialSeq);
+      setTimeout(() => playSequence(initialSeq), 1000);
     }
   }, [gameId, isPrimary]);
 

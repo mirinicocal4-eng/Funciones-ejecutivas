@@ -107,9 +107,9 @@ export default function FlexibilityEngine({ game, isPrimary, onScoreChange, onGa
 
   return (
     <div className="flex flex-col items-center gap-16 w-full max-w-2xl">
-      <div className="text-center bg-accent/10 border border-accent/30 px-8 py-3 rounded-2xl backdrop-blur-sm">
-        <p className="text-xs font-bold text-accent-2 uppercase tracking-[3px] mb-1">REGLA ACTUAL</p>
-        <p className="text-xl font-serif font-bold text-text uppercase tracking-tight">
+      <div className="text-center select-none pointer-events-none">
+        <p className="text-[10px] font-black text-accent uppercase tracking-[4px] mb-1 opacity-40">REGLA ACTUAL</p>
+        <p className="text-2xl font-serif font-black text-slate-800 uppercase tracking-tighter">
           {flexRule === 'color' ? 'Atención al COLOR' : 
            flexRule === 'size' ? 'Atención al TAMAÑO' : 'Atención a la FORMA'}
         </p>
@@ -132,11 +132,11 @@ export default function FlexibilityEngine({ game, isPrimary, onScoreChange, onGa
           </motion.div>
         ))}
       </div>
-      <div className="w-full h-40 border-4 border-dashed border-slate-700 rounded-3xl flex flex-col items-center justify-center bg-slate-800/20 group">
-        <div className="w-16 h-16 bg-slate-700/30 rounded-full flex items-center justify-center mb-2">
-          <RefreshCw className="text-slate-600 group-hover:rotate-180 transition-transform duration-500" />
+      <div className="w-full h-32 bg-slate-900/5 rounded-[3rem] border-2 border-slate-200 flex flex-col items-center justify-center group shadow-inner">
+        <div className="w-12 h-12 bg-white/50 rounded-full flex items-center justify-center mb-1 shadow-sm">
+          <RefreshCw size={20} className="text-slate-400 group-hover:rotate-180 transition-transform duration-700" />
         </div>
-        <p className="text-[10px] font-mono text-slate-600 uppercase tracking-widest">TOCA LOS OBJETOS QUE CUMPLAN LA REGLA</p>
+        <p className="text-[9px] font-black text-slate-400 uppercase tracking-[3px]">CUMPLE LA REGLA</p>
       </div>
     </div>
   );
