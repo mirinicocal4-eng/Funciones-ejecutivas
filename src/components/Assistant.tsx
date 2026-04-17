@@ -24,11 +24,11 @@ export default function Assistant({ gameName, context }: { gameName?: string, co
       const response = await ai.models.generateContent({
         model: "gemini-3-flash-preview",
         contents: [
-          { role: 'user', parts: [{ text: `Eres un robot asistente experto en neuroeducación llamado "Math-Bot". 
-          Estamos en la "Ciudad Matemática del Futuro". 
-          El usuario está viendo el juego: ${gameName || 'Catálogo General'}.
-          Contexto del juego: ${context || 'Explorando la ciudad'}.
-          Responde de forma breve, motivadora y educativa para un niño o su profesor.
+          { role: 'user', parts: [{ text: `Eres un asistente experto en neuroeducación y literatura infantil llamado "Lectorín". 
+          Estamos en "La Biblio-Aventura de las Emociones". 
+          El usuario está viendo el cuento/juego: ${gameName || 'Mapa de Cuentos'}.
+          Contexto de la aventura: ${context || 'Explorando el mundo literario'}.
+          Responde de forma breve, motivadora, usando metáforas literarias y lenguaje educativo para un niño o su profesor.
           Pregunta del usuario: ${userMsg}` }] }
         ],
       });
@@ -62,7 +62,7 @@ export default function Assistant({ gameName, context }: { gameName?: string, co
             <div className="p-4 bg-accent flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <Bot className="text-bg w-5 h-5" />
-                <span className="font-bold text-bg text-sm uppercase tracking-wider">Math-Bot Asistente</span>
+                <span className="font-serif font-bold text-bg text-sm uppercase tracking-wider">Lectorín Asistente</span>
               </div>
               <button onClick={() => setIsOpen(false)} className="text-bg/80 hover:text-bg">
                 <X size={20} />
@@ -71,8 +71,8 @@ export default function Assistant({ gameName, context }: { gameName?: string, co
 
             <div className="flex-1 h-80 overflow-y-auto p-4 space-y-4 bg-bg/50">
               {messages.length === 0 && (
-                <p className="text-text-dim text-xs italic text-center mt-10 uppercase tracking-tight">
-                  ¡Hola! Soy Math-Bot. ¿Tienes dudas sobre cómo entrenar tu cerebro hoy?
+                <p className="text-text-dim text-xs italic text-center mt-10 font-serif">
+                  ¡Hola! Soy Lectorín. ¿Tienes dudas sobre cómo resolver este misterio o entrenar tu cerebro?
                 </p>
               )}
               {messages.map((m, i) => (
@@ -98,7 +98,7 @@ export default function Assistant({ gameName, context }: { gameName?: string, co
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                placeholder="Pregunta a Math-Bot..."
+                placeholder="Pregunta a Lectorín..."
                 className="flex-1 bg-bg border border-slate-700 rounded px-3 py-2 text-xs focus:outline-none focus:border-accent transition-colors text-text"
               />
               <button 

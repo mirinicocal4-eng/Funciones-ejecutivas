@@ -15,9 +15,9 @@ export const GAMES = [
 ];
 
 export const METRICS: Metric[] = [
-  { label: 'Tiempo de Reacción (TR)', description: 'Milisegundos desde la aparición del estímulo hasta la respuesta (clave en Atención y Control Inhibitorio).' },
-  { label: 'Tasa de Aciertos/Errores', description: 'Porcentaje de respuestas correctas frente a omisiones o falsas alarmas.' },
-  { label: 'Span de Memoria', description: 'Número máximo de elementos recordados correctamente en secuencias.' },
-  { label: 'Costo de Cambio', description: 'Tiempo extra que tarda el niño en responder tras un cambio de regla (Flexibilidad Cognitiva).' },
-  { label: 'Eficiencia de Ruta', description: 'Número de movimientos usados vs. movimientos mínimos necesarios (Planificación).' }
+  { label: 'Tiempo de Reacción (TR)', description: 'Rapidez en detectar pistas y responder a los monstruos (clave en Atención e Inhibición).' },
+  { label: 'Precisión del Investigador', description: 'Porcentaje de aciertos al identificar objetos mágicos o pistas reales.' },
+  { label: 'Capacidad de la Mochila', description: 'Número máximo de elementos recordados en las secuencias de las historias.' },
+  { label: 'Agilidad Mental', description: 'Capacidad para cambiar de estrategia cuando la historia da un giro (Flexibilidad).' },
+  { label: 'Planificación de Aventuras', description: 'Eficacia en el orden de pasos para completar misiones con los mínimos movimientos.' }
 ];

@@ -1,15 +1,60 @@
 import { useState, useEffect, ReactNode } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
-  Target, Search, Cpu, Shield, Rocket, Zap, RefreshCw, GitBranch, Map as MapIcon, Layers, 
-  Brain, Info, BarChart3, ChevronRight, Play, X, CheckCircle2, AlertCircle, Filter, ArrowLeft, Bot
+  Target, Search, Cpu, Shield, RefreshCw, Layers, 
+  Brain, Info, BarChart3, ChevronRight, Play, X, CheckCircle2, AlertCircle, ArrowLeft, Bot,
+  Smile, Frown, Flower, BookOpen, Volume2, Ghost, Music, ArrowUp, ArrowDown, Footprints, ClipboardList, PenTool, ShoppingCart, Star,
+  Map as MapIcon, Filter, Zap, Rocket, GitBranch,
+  Cookie, Cake, Gift, Moon, Sun, Cloud, Heart, Tent, Wind, Gem, Crown, Lightbulb, Apple, IceCream, Plane, Car, Train,
+  Shirt, Library, Dog, Coffee, Pizza, Bike, Camera, Music2, Trees, Egg, School, Palette,
+  Sword, Shield as ShieldIcon, Anchor, Compass, Scroll, Pen, Book, MapPin, Watch, Timer, Trash2, Key, Rabbit, Clock, Ship, Mail, FileText, Hash, Eye, ZapOff,
+  CircleDollarSign, ToyBrick, Bird, Flame, Sparkles, Wand2, Pipette, Dot, Wheat, Mountain, MountainSnow, Waves, Castle, Wand, Pipette as PipetteIcon
 } from 'lucide-react';
 import { GAMES, METRICS } from './constants';
 import { GameDefinition, Grade } from './types';
 import Assistant from './components/Assistant';
 
+const TERM_ICON_MAP: Record<string, any> = {
+  apple: Apple, 'manzana-roja': Apple, 'manzana-verde': Apple,
+  cookie: Cookie, cake: Cake, icecream: IceCream, pizza: Pizza,
+  plane: Plane, car: Car, train: Train, bike: Bike, sun: Sun, 
+  moon: Moon, cloud: Cloud, wind: Wind, gem: Gem, crown: Crown,
+  smile: Smile, frown: Frown, shirt: Shirt, flower: Flower, book: BookOpen,
+  dog: Dog, tree: Trees, school: School, ghost: Ghost, egg: Egg, 
+  palette: Palette, clue: Search, bot: Bot, star: Star, socks: Footprints,
+  rainbow: RefreshCw, storm: Wind, cloak: Shield, letter: Mail, castle: Library,
+  potion: Zap, cauldron: Coffee, flute: Music, drum: Music2, whistle: Volume2,
+  broom: GitBranch, shoe: Footprints, ball: Target, gift: Gift, heart: Heart,
+  map: MapIcon, sword: Sword, shield: ShieldIcon, clock: Clock, glass: Timer,
+  dragon: Ghost, letter_ancient: Scroll, parchment: Scroll, quill: Pen, anchor: Anchor, compass: Compass,
+  rabbit: Rabbit, boat: Ship, ship: Ship, key: Key, lock: Shield, crown_gold: Crown, potion_green: Zap,
+  lamp: Lightbulb, map_pin: MapPin, eye: Eye, box: Layers, ink_pot: Coffee, scroll: Scroll,
+  coin: CircleDollarSign, toy: ToyBrick, bird: Bird, flame: Flame, sparkle: Sparkles, light: Sun, flash: Zap,
+  magic: Wand, ink: PipetteIcon, magnify: Search, crumb: Dot, bread: Wheat, forest: Trees,
+  tower: Castle, mountain: Mountain, cave: MountainSnow, river: Waves
+};
+
+function Pictogram({ term, color, size = 48, className = "" }: { term: string, color?: string, size?: number, className?: string }) {
+  const Icon = TERM_ICON_MAP[term.toLowerCase()] || Target;
+  
+  const mainColor = color === 'blue' ? '#3B82F6' : 
+                   color === 'red' ? '#ef4444' : 
+                   color === 'teal' ? '#2DD4BF' : 
+                   color === 'gold' ? '#D4AF37' : '#FF6321';
+
+  return (
+    <div 
+      className={`flex items-center justify-center ${className}`}
+      style={{ width: size, height: size }}
+    >
+      <Icon size={size * 0.8} style={{ color: mainColor }} strokeWidth={2.5} />
+    </div>
+  );
+}
+
 const ICON_MAP: Record<string, any> = {
-  Target, Search, Cpu, Shield, Rocket, Zap, RefreshCw, GitBranch, Map: MapIcon, Layers, Bot
+  Target, Search, Cpu, Shield, Rocket, Zap, RefreshCw, GitBranch, Map: MapIcon, Layers, Bot, Library, BookOpen,
+  CircleDollarSign, ToyBrick, Bird, Flame, Sparkles, Wand2, Pipette, Dot, Wheat, Castle, Mountain, MountainSnow, Waves
 };
 
 const GRADES: Grade[] = [
@@ -59,15 +104,15 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 bg-accent rounded flex items-center justify-center shadow-lg shadow-accent/20">
-              <Brain className="text-bg w-5 h-5" />
+              <Brain className="text-white w-5 h-5" />
             </div>
             <div>
-              <h1 className="text-lg font-extrabold tracking-wider text-accent uppercase">
-                Metrópolis Matemática v2.0
+              <h1 className="text-lg font-serif font-bold tracking-tight text-accent">
+                La Biblio-Aventura
               </h1>
-              <div className="flex gap-4 text-[10px] font-mono text-text-dim uppercase">
-                <span className="flex items-center gap-1"><div className="w-1.5 h-1.5 rounded-full bg-neon-green" /> SISTEMA: ACTIVO</span>
-                <span className="hidden sm:inline">MODO: DISEÑO EDUCATIVO</span>
+              <div className="flex gap-4 text-[10px] font-sans font-medium text-text-dim uppercase">
+                <span className="flex items-center gap-1"><div className="w-1.5 h-1.5 rounded-full bg-neon-green" /> MUNDO: ACTIVO</span>
+                <span className="hidden sm:inline">ENTRENAMIENTO COGNITIVO</span>
               </div>
             </div>
           </div>
@@ -107,9 +152,9 @@ export default function App() {
             >
               <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div className="max-w-2xl">
-                  <h2 className="text-4xl font-bold mb-4">Centro de Mando</h2>
-                  <p className="text-white/60 text-lg">
-                    Explora los distritos de la ciudad. Cada zona entrena una capacidad específica de tu cerebro.
+                  <h2 className="text-4xl font-serif font-bold mb-4">Mapa de Cuentos</h2>
+                  <p className="text-text-dim text-lg italic">
+                    Explora los mundos literarios. Cada aventura entrena una capacidad secreta de tu mente.
                   </p>
                 </div>
 
@@ -345,41 +390,41 @@ function TheorySection() {
   return (
     <div className="space-y-10">
       <div className="text-center space-y-2">
-        <h2 className="text-3xl font-extrabold tracking-tight text-text">Manual Neuroeducativo</h2>
+        <h2 className="text-3xl font-serif font-bold text-text">Manual del Explorador Mental</h2>
         <p className="text-sm text-text-dim max-w-xl mx-auto">
-          Estrategias de entrenamiento cognitivo para la Metrópolis Matemática.
+          Cómo las historias y misterios modernos ayudan a entrenar tu cerebro.
         </p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <TheoryCard 
           title="Atención" 
-          desc="Filtro de estímulos críticos. En nuestra ciudad, es el radar que detecta señales en el ruido digital."
+          desc="Es tu lupa de detective. Sirve para encontrar pistas importantes ignorando los calcetines sucios del monstruo."
         />
         <TheoryCard 
           title="Memoria de Trabajo" 
-          desc="Retención operativa de datos. Es la energía que mantiene activos los hologramas mientras resolvemos un puzzle."
+          desc="Es tu mochila mágica. Te permite guardar datos importantes (como códigos o ingredientes) mientras los usas."
         />
         <TheoryCard 
           title="Control Inhibitorio" 
-          desc="Control de impulsos automáticos. Es el sistema de seguridad que evita acciones precipitadas."
+          desc="Es tu freno de escoba. Evita que actúes por impulso y te ayuda a esperar el momento perfecto."
         />
         <TheoryCard 
           title="Flexibilidad Cognitiva" 
-          desc="Adaptación a cambios de reglas. Es la capacidad de cambiar de estrategia cuando el entorno evoluciona."
+          desc="Es tu varita de transformación. Te permite cambiar de planes cuando la historia da un giro inesperado."
         />
         <TheoryCard 
           title="Planificación" 
-          desc="Estrategia secuencial hacia metas. Es el diseño lógico de las redes de energía de la ciudad."
+          desc="Es tu mapa del tesoro. Sirve para organizar los pasos de tu aventura antes de empezar a caminar."
         />
       </div>
 
       <div className="bg-accent/5 border-l-4 border-accent p-6 rounded-r-lg">
         <h3 className="text-xs font-bold uppercase tracking-widest text-accent mb-2 flex items-center gap-2">
-          <Brain size={14} /> Neuro-Arquitectura
+          <Brain size={14} /> Neuro-Narrativa
         </h3>
         <p className="text-xs text-text-dim leading-relaxed">
-          La ciudad utiliza estímulos geométricos de alto contraste para activar el córtex prefrontal. Cada zona entrena una FE específica mediante el juego inmersivo, reduciendo la ansiedad matemática mediante una narrativa de exploración futurista.
+          Utilizamos tropos de la literatura infantil actual (monstruos de emociones, detectives escolares, magia urbana) para crear un entorno de aprendizaje seguro y divertido. Al conectar con personajes y situaciones cotidianas, los niños reducen la resistencia al esfuerzo cognitivo.
         </p>
       </div>
     </div>
@@ -399,9 +444,9 @@ function MetricsSection() {
   return (
     <div className="space-y-10">
       <div className="text-center space-y-2">
-        <h2 className="text-3xl font-extrabold tracking-tight text-text">Centro de Mando</h2>
+        <h2 className="text-3xl font-serif font-bold text-text">Diario del Narrador</h2>
         <p className="text-sm text-text-dim max-w-xl mx-auto">
-          Monitorización de rendimiento ejecutivo en tiempo real.
+          Registro de la evolución cognitiva y logros del pequeño aventurero.
         </p>
       </div>
 
@@ -456,7 +501,8 @@ function GameEngine({ game, onExit }: { game: GameDefinition, onExit: () => void
   // Inhibition State
   const [isMusicPlaying, setIsMusicPlaying] = useState(true);
   const [isPressing, setIsPressing] = useState(false);
-  const [stroopColor, setStroopColor] = useState({ text: 'ROJO', color: '#FB7185' });
+  const [stroopColor, setStroopColor] = useState({ text: 'ROJO', color: '#ef4444' });
+  const [inhibTarget, setInhibTarget] = useState<'sun' | 'moon' | 'go' | 'stop'>('go');
 
   // Flexibility State
   const [draggedItem, setDraggedItem] = useState<any>(null);
@@ -466,6 +512,7 @@ function GameEngine({ game, onExit }: { game: GameDefinition, onExit: () => void
   // Planning State
   const [towerBlocks, setTowerBlocks] = useState<any[]>([]);
   const [placedBlocks, setPlacedBlocks] = useState<any[]>([]);
+  const [clickFeedback, setClickFeedback] = useState<{ id: any, type: 'correct' | 'incorrect' } | null>(null);
 
   const isPrimary = game.grade.includes('Primaria');
 
@@ -473,56 +520,100 @@ function GameEngine({ game, onExit }: { game: GameDefinition, onExit: () => void
   useEffect(() => {
     if (gameId.includes('at-') && gameStatus === 'playing') {
       const interval = setInterval(() => {
-        let type = 'circle';
-        if (gameId.includes('letras')) type = 'letter';
-        else if (gameId.includes('escaner')) type = 'number';
-        else if (gameId.includes('formas')) type = Math.random() > 0.5 ? 'circle' : 'square';
+        let type = 'star';
+        let color = Math.random() > 0.5 ? 'blue' : 'gold';
+        let value = ""; // For text-based attention
         
-        const vowels = 'AEIOU';
-        const consonants = 'BCDFG';
-        const value = type === 'letter' 
-          ? (Math.random() > 0.4 ? vowels[Math.floor(Math.random() * 5)] : consonants[Math.floor(Math.random() * 5)])
-          : type === 'number' ? Math.floor(Math.random() * 10).toString() : undefined;
-        
-        const color = Math.random() > 0.5 ? 'blue' : 'red';
-        
+        if (gameId.includes('bosque')) {
+          // El Grúfalo
+          type = Math.random() > 0.8 ? 'dragon' : 'tree';
+          color = type === 'dragon' ? 'red' : 'teal';
+        } else if (gameId.includes('manzanas')) {
+          // Blancanieves
+          type = Math.random() > 0.5 ? 'manzana-roja' : 'manzana-verde';
+          color = type === 'manzana-roja' ? 'red' : 'teal';
+        } else if (gameId.includes('hadas')) {
+          // Polvo de estrellas
+          type = 'star';
+          color = 'gold';
+        } else if (gameId.includes('desvan')) {
+          // Alicia
+          const items = ['key', 'rabbit', 'clock', 'book'];
+          type = items[Math.floor(Math.random() * items.length)];
+          color = 'blue';
+        } else if (gameId.includes('piratas')) {
+          // Piratas
+          type = Math.random() > 0.4 ? 'ship' : 'boat';
+          color = type === 'ship' ? 'red' : 'blue';
+        } else if (gameId.includes('cartas')) {
+          // Gigante
+          type = 'letter';
+          color = Math.random() > 0.7 ? 'gold' : 'blue';
+        } else if (gameId.includes('mapa')) {
+          // Narnia
+          type = 'map';
+          color = 'gold';
+        } else if (gameId.includes('escritor')) {
+          // Sherlock
+          type = 'socks';
+          color = Math.random() > 0.5 ? 'blue' : 'gold';
+        } else if (gameId.includes('cronista')) {
+          // Grade 6: XVII Century Intruders
+          const ancient = ['Vuestra Merced', 'Dulcinea', 'Hidalgo', 'Rocinante', 'Fervor'];
+          const modern = ['Smartphone', 'Laptop', 'WiFi', 'TikTok', 'Avión'];
+          const isModern = Math.random() > 0.7;
+          type = 'parchment';
+          value = isModern ? modern[Math.floor(Math.random() * modern.length)] : ancient[Math.floor(Math.random() * ancient.length)];
+          color = isModern ? 'red' : 'gold';
+        }
+
         const newShape = {
-          id: Date.now(),
+          id: Date.now() + Math.random(),
           type,
-          value,
           color,
+          value,
           x: Math.random() * 70 + 15,
           y: Math.random() * 60 + 20
         };
-        setShapes(prev => [...prev.slice(-6), newShape]);
-      }, isPrimary ? 1000 : 1500);
+        setShapes(prev => [...prev.slice(-10), newShape]);
+      }, isPrimary ? 800 : 1200);
       return () => clearInterval(interval);
     }
   }, [gameId, gameStatus, isPrimary]);
 
   const handleAttentionClick = (item: any) => {
     let correct = false;
-    if (gameId.includes('at-i3')) correct = item.color === 'blue';
-    else if (gameId.includes('at-i4')) correct = item.type === 'circle';
-    else if (gameId.includes('escaner')) correct = item.value === '5';
-    else if (gameId.includes('letras')) correct = 'AEIOU'.includes(item.value || '');
+    if (gameId.includes('bosque')) correct = item.type === 'dragon';
+    else if (gameId.includes('manzanas')) correct = item.type === 'manzana-roja';
+    else if (gameId.includes('hadas')) correct = true;
+    else if (gameId.includes('desvan')) correct = ['key', 'rabbit', 'clock'].includes(item.type);
+    else if (gameId.includes('piratas')) correct = item.type === 'ship';
+    else if (gameId.includes('cartas')) correct = item.color === 'gold';
+    else if (gameId.includes('mapa')) correct = true;
+    else if (gameId.includes('escritor')) correct = item.color === 'blue';
+    else if (gameId.includes('cronista')) correct = item.color === 'red'; // Catch the modern intruder
     else correct = true;
 
     if (correct) {
+      setClickFeedback({ id: item.id, type: 'correct' });
       setScore(s => s + 1);
-      setShapes(prev => prev.filter(s => s.id !== item.id));
+      setTimeout(() => {
+        setShapes(prev => prev.filter(s => s.id !== item.id));
+        setClickFeedback(null);
+      }, 300);
       if (score + 1 >= (isPrimary ? 8 : 5)) setGameStatus('won');
     } else {
-      setGameStatus('lost');
+      setClickFeedback({ id: item.id, type: 'incorrect' });
+      setTimeout(() => setGameStatus('lost'), 500);
     }
   };
 
   // --- MEMORY LOGIC ---
   useEffect(() => {
     if (gameId.includes('wm-') && sequence.length === 0 && gameStatus === 'playing') {
-      const startSeq = isPrimary ? [1, 3] : [0];
-      setSequence(startSeq);
-      playSequence(startSeq);
+      const initialSeq = Array.from({ length: 2 }, () => Math.floor(Math.random() * (isPrimary ? 6 : 4)));
+      setSequence(initialSeq);
+      playSequence(initialSeq);
     }
   }, [gameId, gameStatus]);
 
@@ -540,25 +631,33 @@ function GameEngine({ game, onExit }: { game: GameDefinition, onExit: () => void
   const handleWindowClick = (id: number) => {
     if (isShowingSequence || gameStatus !== 'playing') return;
     
-    const targetIdx = gameId.includes('p2') || gameId.includes('p3') 
+    // Inverso logic for Primary 2 (wm-p2-eco)
+    const isReverse = gameId.includes('eco');
+    const targetIdx = isReverse
       ? sequence.length - 1 - userSequence.length 
       : userSequence.length;
 
     if (id === sequence[targetIdx]) {
+      setClickFeedback({ id, type: 'correct' });
       const nextUserSeq = [...userSequence, id];
       setUserSequence(nextUserSeq);
+      setTimeout(() => setClickFeedback(null), 300);
+      
       if (nextUserSeq.length === sequence.length) {
-        if (sequence.length >= (isPrimary ? 5 : 3)) {
-          setGameStatus('won');
+        if (sequence.length >= (isPrimary ? 6 : 4)) {
+          setTimeout(() => setGameStatus('won'), 400);
         } else {
-          const nextSeq = [...sequence, Math.floor(Math.random() * 4)];
-          setSequence(nextSeq);
-          setUserSequence([]);
-          setTimeout(() => playSequence(nextSeq), 1000);
+          const nextSeq = [...sequence, Math.floor(Math.random() * (isPrimary ? 6 : 4))];
+          setTimeout(() => {
+            setSequence(nextSeq);
+            setUserSequence([]);
+            playSequence(nextSeq);
+          }, 800);
         }
       }
     } else {
-      setGameStatus('lost');
+      setClickFeedback({ id, type: 'incorrect' });
+      setTimeout(() => setGameStatus('lost'), 500);
     }
   };
 
@@ -566,43 +665,108 @@ function GameEngine({ game, onExit }: { game: GameDefinition, onExit: () => void
   useEffect(() => {
     if (gameId.includes('ci-') && gameStatus === 'playing') {
       const interval = setInterval(() => {
-        setIsMusicPlaying(prev => !prev);
-        if (gameId.includes('stroop')) {
+        // Toggle music/state
+        const nextState = Math.random() > 0.4;
+        setIsMusicPlaying(nextState);
+        setInhibTarget(nextState ? 'go' : 'stop');
+        
+        if (gameId.includes('tinta')) {
           const colors = [
-            { text: 'ROJO', color: '#FB7185' },
-            { text: 'AZUL', color: '#38BDF8' },
-            { text: 'VERDE', color: '#4ADE80' }
+            { text: 'ROJO', color: '#ef4444' },
+            { text: 'AZUL', color: '#3B82F6' },
+            { text: 'VERDE', color: '#22c55e' }
           ];
           setStroopColor({
             text: colors[Math.floor(Math.random() * 3)].text,
             color: colors[Math.floor(Math.random() * 3)].color
           });
         }
-      }, isPrimary ? 1800 : 3000);
+
+        if (gameId.includes('reves')) {
+          setInhibTarget(Math.random() > 0.5 ? 'sun' : 'moon');
+        }
+
+      }, isPrimary ? 1800 : 2800);
       return () => clearInterval(interval);
     }
   }, [gameId, gameStatus, isPrimary]);
 
+  // Handle continuous pressing games
   useEffect(() => {
-    if (gameId.includes('ci-') && !gameId.includes('stroop') && gameStatus === 'playing') {
-      if (isPressing && !isMusicPlaying) {
-        setGameStatus('lost');
-      }
-      if (isPressing && isMusicPlaying) {
-        setScore(s => s + 0.1);
-        if (score > 5) setGameStatus('won');
-      }
+    let interval: any;
+    if (gameId.includes('ci-') && !gameId.includes('tinta') && !gameId.includes('reves') && gameStatus === 'playing' && isPressing) {
+      interval = setInterval(() => {
+        const canPress = inhibTarget === 'go';
+        if (canPress) {
+          setScore(s => {
+            const next = s + 0.05;
+            if (next >= 5) setGameStatus('won');
+            return next;
+          });
+        } else {
+          setClickFeedback({ id: 'inhibition', type: 'incorrect' });
+          setGameStatus('lost');
+        }
+      }, 100);
     }
-  }, [isPressing, isMusicPlaying, score, gameId, gameStatus]);
+    return () => clearInterval(interval);
+  }, [isPressing, inhibTarget, gameId, gameStatus]);
 
   // --- FLEXIBILITY LOGIC ---
   useEffect(() => {
     if (gameId.includes('fx-') && flexItems.length === 0 && gameStatus === 'playing') {
-      const items = [
-        { id: 1, color: 'blue', size: 'large', type: 'circle' },
-        { id: 2, color: 'red', size: 'small', type: 'square' },
-        { id: 3, color: 'blue', size: 'small', type: 'triangle' }
-      ];
+      let items = [];
+      if (gameId.includes('monstruo')) {
+        items = [
+          { id: 1, color: 'blue', size: 'large', type: 'book' },
+          { id: 2, color: 'red', size: 'small', type: 'book' },
+          { id: 3, color: 'blue', size: 'small', type: 'book' }
+        ];
+        setFlexRule('color');
+      } else if (gameId.includes('clima')) {
+        items = [
+          { id: 1, color: 'blue', size: 'large', type: 'cloud' },
+          { id: 2, color: 'red', size: 'small', type: 'sun' },
+          { id: 3, color: 'blue', size: 'small', type: 'rainbow' }
+        ];
+        setFlexRule('shape');
+      } else if (gameId.includes('mascaras') || gameId.includes('disfraces')) {
+        items = [
+          { id: 1, color: 'blue', size: 'large', type: 'crown' },
+          { id: 2, color: 'red', size: 'small', type: 'cloak' },
+          { id: 3, color: 'blue', size: 'small', type: 'dog' }
+        ];
+        setFlexRule('shape');
+      } else if (gameId.includes('cocina')) {
+        items = [
+          { id: 1, color: 'blue', size: 'large', type: 'apple' },
+          { id: 2, color: 'red', size: 'small', type: 'apple' },
+          { id: 3, color: 'blue', size: 'small', type: 'apple' }
+        ];
+        setFlexRule('color');
+      } else if (gameId.includes('paradoja')) {
+        // P6 Paradox
+        items = [
+          { id: 1, color: 'gold', size: 'large', type: 'clock' },
+          { id: 2, color: 'blue', size: 'small', type: 'glass' },
+          { id: 3, color: 'gold', size: 'small', type: 'clock' }
+        ];
+        setFlexRule('shape');
+      } else if (gameId.includes('biblioteca')) {
+        items = [
+          { id: 1, color: 'blue', size: 'large', type: 'book' },
+          { id: 2, color: 'gold', size: 'small', type: 'book' },
+          { id: 3, color: 'blue', size: 'small', type: 'book' }
+        ];
+        setFlexRule('color');
+      } else {
+        items = [
+          { id: 1, color: 'blue', size: 'large', type: 'star' },
+          { id: 2, color: 'red', size: 'small', type: 'star' },
+          { id: 3, color: 'blue', size: 'small', type: 'star' }
+        ];
+        setFlexRule('color');
+      }
       setFlexItems(items);
     }
   }, [gameId, gameStatus]);
@@ -614,60 +778,151 @@ function GameEngine({ game, onExit }: { game: GameDefinition, onExit: () => void
     else if (flexRule === 'shape') correct = item.type === target;
     
     if (correct) {
+      setClickFeedback({ id: item.id, type: 'correct' });
       const remaining = flexItems.filter(i => i.id !== item.id);
-      setFlexItems(remaining);
+      
       if (remaining.length === 0) {
-        if (flexRule === 'color') {
-          setFlexRule('size');
-          setFlexItems([
-            { id: 4, color: 'red', size: 'large', type: 'square' },
-            { id: 5, color: 'blue', size: 'small', type: 'circle' },
-            { id: 6, color: 'red', size: 'small', type: 'triangle' }
-          ]);
-        } else if (flexRule === 'size' && isPrimary) {
-          setFlexRule('shape');
-          setFlexItems([
-            { id: 7, color: 'blue', size: 'large', type: 'circle' },
-            { id: 8, color: 'red', size: 'large', type: 'triangle' },
-            { id: 9, color: 'blue', size: 'small', type: 'square' }
-          ]);
-        } else {
-          setGameStatus('won');
-        }
+        setTimeout(() => {
+          // Change rules based on the new literary theme (emociones, clima, etc)
+          const nextRule = flexRule === 'color' ? 'size' : flexRule === 'size' ? 'shape' : 'color';
+          setFlexRule(nextRule);
+          
+          if (nextRule === 'shape' && !isPrimary) {
+            setGameStatus('won');
+            return;
+          }
+
+          if (score + 1 >= 2) {
+            setGameStatus('won');
+          } else {
+            setScore(s => s + 1);
+            const nextItems = gameId.includes('clima') ? [
+              { id: Date.now() + 1, color: 'blue', size: 'large', type: 'cloud' },
+              { id: Date.now() + 2, color: 'red', size: 'small', type: 'sun' },
+              { id: Date.now() + 3, color: 'blue', size: 'small', type: 'rainbow' }
+            ] : gameId.includes('emociones') ? [
+              { id: Date.now() + 1, color: Math.random() > 0.5 ? 'blue' : 'red', size: 'large', type: 'book' },
+              { id: Date.now() + 2, color: Math.random() > 0.5 ? 'blue' : 'red', size: 'small', type: 'book' },
+              { id: Date.now() + 3, color: Math.random() > 0.5 ? 'blue' : 'red', size: 'small', type: 'book' }
+            ] : gameId.includes('paradoja') ? [
+              { id: Date.now() + 1, color: 'gold', size: 'large', type: 'clock' },
+              { id: Date.now() + 2, color: 'blue', size: 'small', type: 'glass' },
+              { id: Date.now() + 3, color: 'gold', size: 'small', type: 'glass' }
+            ] : [
+              { id: Date.now() + 1, color: Math.random() > 0.5 ? 'blue' : 'red', size: 'large', type: 'star' },
+              { id: Date.now() + 2, color: Math.random() > 0.5 ? 'blue' : 'red', size: 'small', type: 'gem' },
+              { id: Date.now() + 3, color: Math.random() > 0.5 ? 'blue' : 'red', size: 'small', type: 'crown' }
+            ];
+            setFlexItems(nextItems);
+            setClickFeedback(null);
+          }
+        }, 300);
+      } else {
+        setTimeout(() => {
+          setFlexItems(remaining);
+          setClickFeedback(null);
+        }, 300);
       }
     } else {
-      setGameStatus('lost');
+      setClickFeedback({ id: item.id, type: 'incorrect' });
+      setTimeout(() => setGameStatus('lost'), 500);
     }
   };
 
   // --- PLANNING LOGIC ---
   useEffect(() => {
     if (gameId.includes('pl-') && towerBlocks.length === 0 && gameStatus === 'playing') {
-      const count = isPrimary ? 5 : 3;
-      const blocks = Array.from({ length: count }, (_, i) => ({
-        id: i,
-        size: count - i,
-        color: i % 2 === 0 ? '#38BDF8' : '#818CF8'
-      }));
-      setTowerBlocks(blocks);
+      if (gameId.includes('torre') || gameId.includes('mudanza')) {
+        const blocks = [
+          { id: 1, size: 3, color: '#D4AF37', name: 'BASE', type: 'book' },
+          { id: 2, size: 2, color: '#FF6321', name: 'CUERPO', type: 'book' },
+          { id: 3, size: 1, color: '#2DD4BF', name: 'CIMA', type: 'book' }
+        ];
+        if (isPrimary) {
+          blocks.unshift({ id: 4, size: 4, color: '#5A5A40', name: 'LIBRO GRUESO', type: 'book' });
+          blocks.push({ id: 5, size: 0.5, color: '#ef4444', name: 'MARCADOR', type: 'star' });
+        }
+        setTowerBlocks(blocks);
+      } else if (gameId.includes('maleta')) {
+        const blocks = [
+          { id: 0, name: 'ROPA', color: '#FF6321', type: 'shirt' },
+          { id: 1, name: 'MAPA', color: '#D4AF37', type: 'map' },
+          { id: 2, name: 'LLAVE', color: '#3B82F6', type: 'key' }
+        ];
+        setTowerBlocks(blocks.sort(() => Math.random() - 0.5));
+      } else if (gameId.includes('migas')) {
+        const blocks = [
+          { id: 0, name: 'Pájaros', color: '#FF6321', type: 'star' },
+          { id: 1, name: 'Migas', color: '#D4AF37', type: 'egg' },
+          { id: 2, name: 'Casa', color: '#3B82F6', type: 'castle' }
+        ];
+        setTowerBlocks(blocks.sort(() => Math.random() - 0.5));
+      } else if (gameId.includes('archive') || gameId.includes('archivo')) {
+        // P6 Paradox Archive: SCROLL -> QUILL -> SEAL -> ARCHIVE
+        const blocks = [
+          { id: 0, name: 'PERGAMINO', color: '#D4AF37', type: 'parchment' },
+          { id: 1, name: 'PLUMA', color: '#3B82F6', type: 'quill' },
+          { id: 2, name: 'SELLO', color: '#ef4444', type: 'shield' },
+          { id: 3, name: 'ARCHIVO', color: '#2DD4BF', type: 'library' }
+        ];
+        setTowerBlocks(blocks.sort(() => Math.random() - 0.5));
+      } else {
+        const blocks = [
+          { id: 0, name: 'Inicio', color: '#FF6321', type: 'sun' },
+          { id: 1, name: 'Medio', color: '#D4AF37', type: 'cloud' },
+          { id: 2, name: 'Final', color: '#3B82F6', type: 'moon' }
+        ];
+        setTowerBlocks(blocks.sort(() => Math.random() - 0.5));
+      }
     }
-  }, [gameId, isPrimary, gameStatus]);
+  }, [gameId, gameStatus, isPrimary]);
 
   const handleBlockPlace = (block: any) => {
     if (gameStatus !== 'playing') return;
-    const lastSize = placedBlocks.length > 0 ? placedBlocks[placedBlocks.length - 1].size : 10;
-    if (block.size < lastSize) {
-      const newPlaced = [...placedBlocks, block];
-      setPlacedBlocks(newPlaced);
-      setTowerBlocks(prev => prev.filter(b => b.id !== block.id));
-      if (newPlaced.length === (isPrimary ? 5 : 3)) setGameStatus('won');
+    
+    let isCorrect = false;
+    
+    if (gameId.includes('torre') || gameId.includes('mudanza')) {
+      const lastSize = placedBlocks.length > 0 ? placedBlocks[placedBlocks.length - 1].size : 10;
+      isCorrect = block.size < lastSize;
+    } else if (gameId.includes('archivo')) {
+      const order = ['parchment', 'quill', 'shield', 'library'];
+      isCorrect = block.type === order[placedBlocks.length];
     } else {
-      setGameStatus('lost');
+      isCorrect = block.id === placedBlocks.length;
+    }
+
+    if (isCorrect) {
+      setClickFeedback({ id: block.id, type: 'correct' });
+      const newPlaced = [...placedBlocks, block];
+      setTimeout(() => {
+        setPlacedBlocks(newPlaced);
+        setTowerBlocks(prev => {
+          const filtered = prev.filter(b => b.id !== block.id);
+          if (filtered.length === 0) setGameStatus('won');
+          return filtered;
+        });
+        setClickFeedback(null);
+      }, 300);
+    } else {
+      setClickFeedback({ id: block.id, type: 'incorrect' });
+      setTimeout(() => setGameStatus('lost'), 500);
     }
   };
 
-  if (gameStatus === 'won') return <GameResult status="won" onRetry={() => { setGameStatus('briefing'); setScore(0); setSequence([]); setTowerBlocks([]); setPlacedBlocks([]); }} onExit={onExit} />;
-  if (gameStatus === 'lost') return <GameResult status="lost" onRetry={() => { setGameStatus('briefing'); setScore(0); setSequence([]); setUserSequence([]); setPlacedBlocks([]); }} onExit={onExit} />;
+  const resetAll = () => {
+    setScore(0);
+    setShapes([]);
+    setSequence([]);
+    setUserSequence([]);
+    setFlexItems([]);
+    setTowerBlocks([]);
+    setPlacedBlocks([]);
+    setIsPressing(false);
+    setClickFeedback(null);
+    setActiveWindow(null);
+    setIsShowingSequence(false);
+  };
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-center p-8 bg-bg relative overflow-hidden">
@@ -689,15 +944,15 @@ function GameEngine({ game, onExit }: { game: GameDefinition, onExit: () => void
             exit={{ opacity: 0, scale: 1.1 }}
             className="max-w-md w-full bg-card border border-slate-700 rounded-2xl p-8 space-y-6 shadow-2xl relative z-20"
           >
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-accent/20 rounded-full flex items-center justify-center border border-accent/40">
-                <Bot className="text-accent w-7 h-7" />
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-accent/20 rounded-full flex items-center justify-center border border-accent/40">
+                  <Bot className="text-accent w-7 h-7" />
+                </div>
+                <div>
+                  <h3 className="text-accent-2 text-[10px] font-bold uppercase tracking-widest">Aventura con Lectorín</h3>
+                  <h2 className="text-xl font-serif font-bold text-text uppercase tracking-tight">{game.name}</h2>
+                </div>
               </div>
-              <div>
-                <h3 className="text-accent-2 text-[10px] font-bold uppercase tracking-widest">Misión de Math-Bot</h3>
-                <h2 className="text-xl font-black text-text uppercase tracking-tighter">{game.name}</h2>
-              </div>
-            </div>
             
             <div className="bg-bg/50 rounded-xl p-4 border border-slate-800">
               <p className="text-sm text-text-dim leading-relaxed">
@@ -735,12 +990,32 @@ function GameEngine({ game, onExit }: { game: GameDefinition, onExit: () => void
 
             {/* ATTENTION ENGINE */}
             {gameId.includes('at-') && (
-              <div className="relative w-full h-full border border-slate-700/50 rounded-3xl flex items-center justify-center overflow-hidden bg-bg/30">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(56,189,248,0.05)_0%,transparent_70%)]" />
-                <div className="absolute w-full h-0.5 bg-accent/5 animate-[spin_10s_linear_infinite]" />
+              <div className={`relative w-full h-full border-4 border-accent-2/20 rounded-[2.5rem] flex items-center justify-center overflow-hidden transition-colors ${
+                gameId.includes('bosque') ? 'bg-green-900/10' : 
+                gameId.includes('manzanas') ? 'bg-red-50/20' : 
+                gameId.includes('cronista') ? 'bg-amber-50/20' : 'bg-[#fdfcf8]'
+              }`}>
+                {/* Scene Decorations */}
+                {gameId.includes('bosque') && <Pictogram term="tree" size={200} className="absolute bottom-0 right-0 opacity-10 -rotate-12 translate-x-12 translate-y-12 pointer-events-none" />}
+                {gameId.includes('manzanas') && <div className="absolute bottom-4 right-4 opacity-20 pointer-events-none"><Pictogram term="apple" size={120} /></div>}
+                {gameId.includes('cronista') && <div className="absolute top-4 left-4 opacity-20 pointer-events-none"><Pictogram term="scroll" size={140} /></div>}
+
+                {/* Paper Texture Overlay */}
+                <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/notebook.png')]" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,99,33,0.03)_0%,transparent_80%)]" />
                 
-                <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-[10px] font-mono text-accent uppercase tracking-[4px] bg-bg/80 px-6 py-2 rounded-full border border-accent/20 backdrop-blur-sm">
-                  OBJETIVO: {gameId.includes('escaner') ? 'NÚMERO 5' : gameId.includes('letras') ? 'VOCALES' : 'GLOBOS AZULES'}
+                <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-[10px] font-serif italic text-accent uppercase tracking-[4px] bg-white/90 px-8 py-3 rounded-2xl border-2 border-accent/10 backdrop-blur-sm shadow-2xl z-20">
+                  LA MISIÓN DEL DÍA: {
+                    gameId.includes('bosque') ? 'BUSCA AL GRÚFALO' : 
+                    gameId.includes('manzanas') ? 'MANZANAS ROJAS' : 
+                    gameId.includes('hadas') ? 'POLVO DE ESTRELLAS' : 
+                    gameId.includes('desvan') ? 'OBJETOS DE ALICIA' : 
+                    gameId.includes('piratas') ? 'BARCOS PIRATAS' : 
+                    gameId.includes('cartas') ? 'SELLOS REALES' :
+                    gameId.includes('mapa') ? 'ERRORES EN NARNIA' :
+                    gameId.includes('escritor') ? 'HUELLAS AZULES' :
+                    gameId.includes('cronista') ? 'INTRUSOS MODERNOS' : 'OBJETOS MÁGICOS'
+                  }
                 </div>
 
                 {shapes.map(shape => (
@@ -751,22 +1026,47 @@ function GameEngine({ game, onExit }: { game: GameDefinition, onExit: () => void
                     exit={{ scale: 1.5, opacity: 0, rotate: 20 }}
                     onClick={() => handleAttentionClick(shape)}
                     style={{ left: `${shape.x}%`, top: `${shape.y}%` }}
-                    className="absolute cursor-pointer w-20 h-20 flex items-center justify-center transition-transform active:scale-90"
+                    className={`absolute cursor-pointer w-20 h-20 flex items-center justify-center transition-all active:scale-90 ${
+                      clickFeedback?.id === shape.id && clickFeedback.type === 'correct' ? 'scale-125 z-50' :
+                      clickFeedback?.id === shape.id && clickFeedback.type === 'incorrect' ? 'animate-shake' : ''
+                    }`}
                   >
-                    {shape.type === 'number' || shape.type === 'letter' ? (
-                      <div className={`text-5xl font-black select-none ${shape.color === 'blue' ? 'text-accent' : 'text-neon-red'} drop-shadow-[0_0_15px_rgba(56,189,248,0.6)]`}>
-                        {shape.value}
-                      </div>
-                    ) : (
-                      <div className={`w-14 h-14 border-4 border-white/30 shadow-2xl relative flex items-center justify-center ${
-                        shape.type === 'circle' ? 'rounded-full' : 'rounded-xl'
-                      } ${
-                        shape.color === 'blue' ? 'bg-accent shadow-accent/40' : 'bg-neon-red shadow-neon-red/40'
-                      }`}>
-                        <div className="absolute top-1 left-1 w-3 h-3 bg-white/40 rounded-full blur-[2px]" />
-                        {shape.type === 'circle' ? <Target size={24} className="text-white/20" /> : <Layers size={24} className="text-white/20" />}
-                      </div>
-                    )}
+                    {(() => {
+                      const isCorrect = clickFeedback?.id === shape.id && clickFeedback.type === 'correct';
+                      const isIncorrect = clickFeedback?.id === shape.id && clickFeedback.type === 'incorrect';
+                      
+                      const mainColor = isCorrect ? '#22c55e' : 
+                                      isIncorrect ? '#facc15' : 
+                                      shape.color === 'blue' ? '#3B82F6' :
+                                      shape.color === 'gold' ? '#D4AF37' :
+                                      shape.color === 'teal' ? '#2DD4BF' :
+                                      shape.color === 'red' ? '#ef4444' : '#FF6321';
+
+                      return (
+                        <div className={`relative flex items-center justify-center transition-all ${
+                          isCorrect ? 'scale-125' :
+                          isIncorrect ? 'animate-shake' : ''
+                        }`}>
+                          {/* Sticker glow/shadow effect */}
+                          <div className="absolute inset-0 blur-2xl opacity-20 rounded-full" style={{ backgroundColor: mainColor }} />
+                          
+                          <div className="relative z-10 filter drop-shadow-[0_2px_0_white] drop-shadow-[0_-2px_0_white] drop-shadow-[2px_0_0_white] drop-shadow-[-2px_0_0_white] drop-shadow-[0_4px_8px_rgba(0,0,0,0.3)] flex flex-col items-center">
+                            <Pictogram term={shape.type} color={shape.color} size={56} />
+                            {shape.value && (
+                              <div className="absolute top-full mt-2 px-3 py-1 bg-white border-2 border-slate-800 rounded-lg shadow-xl whitespace-nowrap">
+                                <span className="text-[14px] font-black text-slate-800 font-serif uppercase tracking-tight">{shape.value}</span>
+                              </div>
+                            )}
+                          </div>
+
+                          {shape.color === 'blue' && gameId.includes('escritor') && (
+                            <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none filter drop-shadow-[0_1px_0_white] drop-shadow-[0_-1px_0_white] drop-shadow-[1px_0_0_white] drop-shadow-[-1px_0_0_white]">
+                              <Pictogram term="clue" size={40} className="opacity-40" />
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })()}
                   </motion.div>
                 ))}
               </div>
@@ -774,21 +1074,45 @@ function GameEngine({ game, onExit }: { game: GameDefinition, onExit: () => void
 
             {/* MEMORY ENGINE */}
             {gameId.includes('wm-') && (
-              <div className="grid grid-cols-2 gap-6 w-full max-w-sm p-4">
-                {[0, 1, 2, 3].map(id => (
+              <div className={`grid ${isPrimary ? 'grid-cols-3' : 'grid-cols-2'} gap-6 w-full max-w-lg p-4`}>
+                {(isPrimary ? [0, 1, 2, 3, 4, 5] : [0, 1, 2, 3]).map(id => (
                   <motion.div
                     key={id}
                     whileTap={{ scale: 0.9 }}
                     onClick={() => handleWindowClick(id)}
-                    className={`aspect-square rounded-2xl border-2 transition-all duration-300 cursor-pointer flex items-center justify-center relative overflow-hidden ${
-                      activeWindow === id ? 'bg-accent border-white shadow-[0_0_40px_rgba(56,189,248,0.9)]' : 'bg-card border-slate-700 hover:border-slate-500'
+                    className={`aspect-square rounded-3xl border-2 transition-all duration-300 cursor-pointer flex items-center justify-center relative overflow-hidden backdrop-blur-sm ${
+                      clickFeedback?.id === id && clickFeedback.type === 'correct' ? 'bg-neon-green/20 border-white shadow-[0_0_30px_rgba(74,222,128,0.4)]' :
+                      clickFeedback?.id === id && clickFeedback.type === 'incorrect' ? 'bg-yellow-400/20 border-white shadow-[0_0_30px_rgba(250,204,21,0.4)]' :
+                      activeWindow === id ? 'bg-accent/30 border-white shadow-[0_0_40px_rgba(255,99,33,0.3)]' : 'bg-white/5 border-slate-700/30 hover:border-slate-500/50'
                     }`}
                   >
                     <div className={`absolute inset-0 bg-gradient-to-br from-white/10 to-transparent ${activeWindow === id ? 'opacity-100' : 'opacity-0'}`} />
-                    <Cpu className={`w-10 h-10 transition-colors ${activeWindow === id ? 'text-bg' : 'text-slate-800'}`} />
+                    {(() => {
+                      const terms = gameId.includes('bolsillo') || gameId.includes('baul') || gameId.includes('compra')
+                        ? ['apple', 'cookie', 'cake', 'icecream', 'gem', 'star'] 
+                        : gameId.includes('nubes') 
+                        ? ['cloud', 'cloud', 'cloud', 'cloud', 'cloud', 'cloud']
+                        : gameId.includes('farolillos')
+                        ? ['sun', 'moon', 'star', 'gem', 'crown', 'cloud']
+                        : gameId.includes('hechizo')
+                        ? ['potion', 'cauldron', 'apple', 'flower', 'star', 'gem']
+                        : gameId.includes('codice')
+                        ? ['parchment', 'scroll', 'quill', 'key', 'gem', 'shield']
+                        : ['book', 'scroll', 'quill', 'map', 'key', 'ink_pot'];
+                      const term = terms[id % terms.length];
+                      
+                      const showFeedback = clickFeedback?.id === id;
+                      if (showFeedback && clickFeedback.type === 'correct') return <Pictogram term="smile" size={56} className="animate-bounce" />;
+                      if (showFeedback && clickFeedback.type === 'incorrect') return <Pictogram term="frown" size={56} className="animate-shake" />;
+
+                      if (gameId.includes('escondite')) return <Pictogram term="ghost" size={48} className={`transition-all ${activeWindow === id ? 'scale-110' : 'opacity-60 grayscale'}`} />;
+                      if (gameId.includes('numeros') || gameId.includes('inverso')) return <span className={`text-5xl font-black ${activeWindow === id ? 'text-accent' : 'text-slate-400'}`}>{id + 1}</span>;
+                      if (gameId.includes('pizarra')) return <Pictogram term="palette" size={48} className={`transition-all ${activeWindow === id ? 'scale-110' : 'opacity-60 grayscale'}`} />;
+                      return <Pictogram term={term} size={48} className={`transition-all ${activeWindow === id ? 'scale-110' : 'opacity-60 grayscale'}`} />;
+                    })()}
                   </motion.div>
                 ))}
-                <div className="col-span-2 text-center text-xs font-mono text-accent uppercase tracking-[3px] mt-8 bg-accent/5 py-2 rounded-lg border border-accent/10">
+                <div className={`${isPrimary ? 'col-span-3' : 'col-span-2'} text-center text-xs font-mono text-accent uppercase tracking-[3px] mt-8 bg-accent/5 py-2 rounded-lg border border-accent/10 uppercase`}>
                   {isShowingSequence ? 'OBSERVA EL PATRÓN' : '¡TU TURNO! REPITELO'}
                 </div>
               </div>
@@ -798,54 +1122,132 @@ function GameEngine({ game, onExit }: { game: GameDefinition, onExit: () => void
             {gameId.includes('ci-') && (
               <div className="flex flex-col items-center gap-12">
                 {gameId.includes('stroop') ? (
-                  <div className="text-center space-y-12">
-                    <motion.div 
-                      key={stroopColor.text + stroopColor.color}
-                      initial={{ scale: 0.8, opacity: 0 }}
-                      animate={{ scale: 1, opacity: 1 }}
-                      className="p-16 bg-card border border-slate-700 rounded-3xl shadow-2xl"
-                    >
-                      <h3 style={{ color: stroopColor.color }} className="text-7xl font-black tracking-tighter uppercase">
-                        {stroopColor.text}
-                      </h3>
-                    </motion.div>
-                    <div className="flex gap-6 justify-center">
-                      {[
-                        { name: 'ROJO', color: '#FB7185' },
-                        { name: 'AZUL', color: '#38BDF8' },
-                        { name: 'VERDE', color: '#4ADE80' }
-                      ].map(c => (
-                        <button 
-                          key={c.color}
-                          onClick={() => {
-                            if (c.color === stroopColor.color) setScore(s => s + 1);
-                            else setGameStatus('lost');
-                            if (score + 1 >= 8) setGameStatus('won');
-                          }}
-                          style={{ backgroundColor: c.color }}
-                          className="w-20 h-20 rounded-2xl border-4 border-white/20 active:scale-90 transition-all shadow-lg hover:brightness-110"
-                        />
-                      ))}
+                    <div className="text-center space-y-12">
+                      <motion.div 
+                        key={stroopColor.text + stroopColor.color}
+                        initial={{ scale: 0.8, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        className="p-16 bg-card border border-slate-700 rounded-3xl shadow-2xl"
+                      >
+                        <h3 style={{ color: stroopColor.color }} className="text-7xl font-serif font-bold tracking-tighter uppercase">
+                          {stroopColor.text}
+                        </h3>
+                      </motion.div>
+                      <div className="flex gap-6 justify-center">
+                        {[
+                          { name: 'ROJO', color: '#ef4444' },
+                          { name: 'AZUL', color: '#3B82F6' },
+                          { name: 'VERDE', color: '#22c55e' }
+                        ].map(c => (
+                          <button 
+                            key={c.color}
+                            onClick={() => {
+                              if (c.color === stroopColor.color) {
+                                setClickFeedback({ id: c.color, type: 'correct' });
+                                setScore(s => s + 1);
+                                setTimeout(() => setClickFeedback(null), 300);
+                                if (score + 1 >= 8) setTimeout(() => setGameStatus('won'), 400);
+                              } else {
+                                setClickFeedback({ id: c.color, type: 'incorrect' });
+                                setTimeout(() => setGameStatus('lost'), 500);
+                              }
+                            }}
+                            style={{ backgroundColor: c.color }}
+                            className={`w-20 h-20 rounded-full border-4 border-white active:scale-90 transition-all shadow-xl hover:brightness-110 flex items-center justify-center ${
+                              clickFeedback?.id === c.color && clickFeedback.type === 'correct' ? 'ring-8 ring-neon-green scale-110' :
+                              clickFeedback?.id === c.color && clickFeedback.type === 'incorrect' ? 'ring-8 ring-yellow-400 animate-shake' : ''
+                            }`}
+                          >
+                            <Pictogram term="palette" className="text-white/30" size={32} />
+                          </button>
+                        ))}
+                      </div>
+                      <p className="text-xs font-serif font-bold text-text-dim uppercase tracking-[2px]">TOCA EL COLOR DE LA TINTA, NO LA PALABRA</p>
                     </div>
-                    <p className="text-xs font-bold text-text-dim uppercase tracking-[2px]">TOCA EL COLOR DE LA TINTA, NO LA PALABRA</p>
+                ) : gameId.includes('contrario') ? (
+                  <div className="flex flex-col items-center gap-12 text-center">
+                    <div className="p-8 bg-white/90 rounded-[2.5rem] shadow-2xl border-b-[8px] border-slate-200">
+                      <p className="text-xs font-black text-accent uppercase tracking-[4px] mb-4">EL HADA DICE:</p>
+                      <h3 className="text-6xl font-black text-slate-800 uppercase tracking-tight">
+                        {inhibTarget === 'sun' ? 'NOCHE' : 'DÍA'}
+                      </h3>
+                    </div>
+                    
+                    <div className="flex gap-16">
+                      <motion.button
+                        whileHover={{ scale: 1.1, y: -10 }}
+                        whileTap={{ scale: 0.9 }}
+                        onClick={() => {
+                          if (inhibTarget === 'moon') { // Hada said DAY (moon target) -> User must pick SUN icon to be "Contrary"
+                             setScore(s => s + 1);
+                             setClickFeedback({ id: 'sun', type: 'correct' });
+                             setTimeout(() => setClickFeedback(null), 350);
+                             if (score + 1 >= (isPrimary ? 8 : 4)) setGameStatus('won');
+                          } else {
+                             setGameStatus('lost');
+                          }
+                        }}
+                        className="w-32 h-32 bg-white rounded-full shadow-2xl border-4 border-white flex items-center justify-center filter drop-shadow-lg"
+                      >
+                         <Pictogram term="sun" size={64} />
+                      </motion.button>
+
+                      <motion.button
+                        whileHover={{ scale: 1.1, y: -10 }}
+                        whileTap={{ scale: 0.9 }}
+                        onClick={() => {
+                          if (inhibTarget === 'sun') { // Hada said NIGHT (sun target) -> User must pick MOON icon
+                             setScore(s => s + 1);
+                             setClickFeedback({ id: 'moon', type: 'correct' });
+                             setTimeout(() => setClickFeedback(null), 350);
+                             if (score + 1 >= (isPrimary ? 8 : 4)) setGameStatus('won');
+                          } else {
+                             setGameStatus('lost');
+                          }
+                        }}
+                        className="w-32 h-32 bg-white rounded-full shadow-2xl border-4 border-white flex items-center justify-center filter drop-shadow-lg"
+                      >
+                         <Pictogram term="moon" size={64} />
+                      </motion.button>
+                    </div>
+                    <p className="text-xs font-black text-accent/60 uppercase tracking-widest max-w-[200px]">¡TOCA LO CONTRARIO DE LO QUE DICE EL HADA!</p>
                   </div>
                 ) : (
                   <>
-                    <div className={`w-40 h-40 rounded-full flex items-center justify-center border-8 transition-all duration-500 ${
-                      isMusicPlaying ? 'border-neon-green shadow-[0_0_60px_rgba(74,222,128,0.5)]' : 'border-neon-red shadow-[0_0_60px_rgba(251,113,133,0.5)]'
+                    <div className={`w-40 h-40 rounded-full flex items-center justify-center border-8 transition-all duration-500 shadow-2xl ${
+                      clickFeedback?.type === 'incorrect' ? 'border-neon-red bg-neon-red/20 animate-shake' :
+                      inhibTarget === 'go' ? 'border-neon-green shadow-neon-green/40 bg-neon-green/5' : 'border-neon-red shadow-neon-red/40 bg-neon-red/5'
                     }`}>
                       <motion.div
-                        animate={isMusicPlaying && isPressing ? { rotate: [0, 10, -10, 0], scale: [1, 1.1, 1] } : {}}
+                        animate={inhibTarget === 'go' && isPressing ? { rotate: [0, 10, -10, 0], scale: [1, 1.1, 1] } : {}}
                         transition={{ repeat: Infinity, duration: 0.5 }}
                       >
-                        <Bot className={`w-20 h-20 transition-colors ${isMusicPlaying && isPressing ? 'text-neon-green' : 'text-slate-800'}`} />
+                        {gameId.includes('pocion') ? (
+                          <div className="relative filter drop-shadow-xl">
+                            <Pictogram term="cauldron" size={80} />
+                            <div className={`absolute -top-4 left-1/2 -translate-x-1/2 w-12 h-12 rounded-full blur-xl animate-pulse transition-colors ${inhibTarget === 'go' ? 'bg-neon-green' : 'bg-neon-red'}`} />
+                          </div>
+                        ) : gameId.includes('parada') ? (
+                          <div className={`filter transition-all ${inhibTarget === 'go' && isPressing ? 'drop-shadow-[0_0_20px_rgba(255,99,33,0.8)]' : 'opacity-40 grayscale'}`}>
+                            <Pictogram term="broom" size={100} />
+                          </div>
+                        ) : (
+                          <div className={`filter transition-all ${inhibTarget === 'go' && isPressing ? 'drop-shadow-[0_0_15px_rgba(74,222,128,0.8)]' : 'opacity-40 grayscale'}`}>
+                            <Pictogram term={inhibTarget === 'go' ? 'dog' : 'ghost'} size={80} />
+                          </div>
+                        )}
                       </motion.div>
                     </div>
                     <div className="text-center space-y-2">
-                      <p className={`text-lg font-black uppercase tracking-[4px] ${isMusicPlaying ? 'text-neon-green' : 'text-neon-red'}`}>
-                        {isMusicPlaying ? '¡BAILA! (MANTÉN)' : '¡PARA! (SUELTA)'}
+                      <p className={`text-lg font-serif font-bold uppercase tracking-[4px] ${inhibTarget === 'go' ? 'text-neon-green' : 'text-neon-red'}`}>
+                        {gameId.includes('pocion') ? (inhibTarget === 'go' ? '¡GOTEO MÁGICO!' : '¡PARA LA MEZCLA!') : 
+                         gameId.includes('parada') ? (inhibTarget === 'go' ? '¡VUELA ALTO!' : '¡ATERRIZA YA!') :
+                         gameId.includes('semaforo') ? (inhibTarget === 'go' ? '¡CAMINA!' : '¡QUIETO, PINOCHO!') :
+                         gameId.includes('estatua') ? (inhibTarget === 'go' ? '¡BAILA!' : '¡ESTATUA!') :
+                         gameId.includes('archivo') ? (inhibTarget === 'go' ? '¡LEAL!' : '¡TRAIDOR!') :
+                         inhibTarget === 'go' ? '¡ACCIONA!' : '¡DETENTE!'}
                       </p>
-                      <div className="w-48 h-2 bg-slate-800 rounded-full overflow-hidden mx-auto border border-slate-700">
+                      <div className="w-48 h-2 bg-slate-200 rounded-full overflow-hidden mx-auto border border-slate-300">
                         <motion.div 
                           animate={{ width: `${(score / 5) * 100}%` }}
                           className="h-full bg-neon-green shadow-[0_0_10px_rgba(74,222,128,0.8)]"
@@ -873,9 +1275,9 @@ function GameEngine({ game, onExit }: { game: GameDefinition, onExit: () => void
               <div className="flex flex-col items-center gap-16 w-full max-w-2xl">
                 <div className="text-center bg-accent/10 border border-accent/30 px-8 py-3 rounded-2xl backdrop-blur-sm">
                   <p className="text-xs font-bold text-accent-2 uppercase tracking-[3px] mb-1">REGLA ACTUAL</p>
-                  <p className="text-xl font-black text-text uppercase tracking-tight">
-                    {flexRule === 'color' ? 'COLOR (AZUL)' : 
-                     flexRule === 'size' ? 'TAMAÑO (GRANDE)' : 'FORMA (CÍRCULO)'}
+                  <p className="text-xl font-serif font-bold text-text uppercase tracking-tight">
+                    {flexRule === 'color' ? 'Atención al COLOR' : 
+                     flexRule === 'size' ? 'Atención al TAMAÑO' : 'Atención a la FORMA'}
                   </p>
                 </div>
                 <div className="flex gap-12 justify-center w-full h-40 items-center">
@@ -886,15 +1288,29 @@ function GameEngine({ game, onExit }: { game: GameDefinition, onExit: () => void
                       whileTap={{ scale: 0.9 }}
                       onClick={() => handleFlexDrop(item, 
                         flexRule === 'color' ? 'blue' : 
-                        flexRule === 'size' ? 'large' : 'circle'
+                        flexRule === 'size' ? 'large' : 
+                        gameId.includes('clima') ? 'rainbow' :
+                        gameId.includes('disfraces') ? 'cloak' :
+                        gameId.includes('monstruo') ? 'book' :
+                        gameId.includes('cocina') ? 'apple' :
+                        gameId.includes('paradoja') ? 'clock' :
+                        gameId.includes('biblioteca') ? 'book' : 'star'
                       )}
-                      className={`cursor-pointer flex items-center justify-center rounded-2xl border-4 shadow-xl transition-colors ${
-                        item.color === 'blue' ? 'bg-accent/20 border-accent' : 'bg-neon-red/20 border-neon-red'
-                      } ${item.size === 'large' ? 'w-24 h-24' : 'w-14 h-14'}`}
+                      className={`cursor-pointer flex items-center justify-center rounded-2xl border-4 shadow-xl transition-all ${
+                        clickFeedback?.id === item.id && clickFeedback.type === 'correct' ? 'bg-neon-green border-white scale-110' :
+                        clickFeedback?.id === item.id && clickFeedback.type === 'incorrect' ? 'bg-yellow-400 border-white animate-shake' :
+                        item.color === 'blue' ? 'bg-blue/10 border-blue/40' : 'bg-neon-red/10 border-neon-red/40'
+                      } ${item.size === 'large' ? 'w-24 h-24' : 'w-16 h-16'}`}
                     >
-                      {item.type === 'circle' && <div className="w-2/3 h-2/3 rounded-full border-2 border-white/40" />}
-                      {item.type === 'square' && <div className="w-2/3 h-2/3 border-2 border-white/40" />}
-                      {item.type === 'triangle' && <div className="w-0 h-0 border-l-[15px] border-l-transparent border-r-[15px] border-r-transparent border-b-[25px] border-b-white/40" />}
+                      {(() => {
+                         const size = item.size === 'large' ? 48 : 32;
+                         const color = item.color === 'blue' ? '#3B82F6' : '#ef4444';
+                         return (
+                           <div className="filter drop-shadow-[0_1px_0_white] drop-shadow-[0_-1px_0_white] drop-shadow-[1px_0_0_white] drop-shadow-[-1px_0_0_white]">
+                             <Pictogram term={item.type} size={size} />
+                           </div>
+                         );
+                      })()}
                     </motion.div>
                   ))}
                 </div>
@@ -910,17 +1326,21 @@ function GameEngine({ game, onExit }: { game: GameDefinition, onExit: () => void
             {/* PLANNING ENGINE */}
             {gameId.includes('pl-') && (
               <div className="flex flex-col items-center gap-12">
-                <div className="flex flex-col-reverse items-center gap-1 min-h-[250px] w-80 border-b-8 border-slate-800 pb-2 relative">
+                <div className={`flex items-center gap-1 w-80 border-slate-800 pb-2 relative ${
+                  gameId.includes('pasteles') || gameId.includes('hanoi') ? 'flex-col-reverse min-h-[250px] border-b-8' : 'flex-col min-h-[150px]'
+                }`}>
                   <div className="absolute inset-0 bg-accent/5 blur-3xl rounded-full -z-10" />
                   {placedBlocks.map(block => (
                     <motion.div
                       key={block.id}
                       initial={{ y: -200, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
-                      style={{ width: `${block.size * 50}px`, backgroundColor: block.color }}
-                      className="h-10 rounded-lg border-2 border-white/20 shadow-2xl flex items-center justify-center"
+                      style={block.size ? { width: `${block.size * 50}px`, backgroundColor: block.color } : { backgroundColor: block.color }}
+                      className={`h-12 px-6 rounded-xl border-2 border-white/40 shadow-2xl flex items-center gap-3 ${!block.size ? 'w-full mb-2' : ''}`}
                     >
-                      <div className="w-full h-1 bg-white/10 mt-auto mb-1 mx-2 rounded-full" />
+                      {block.type && <Pictogram term={block.type} size={24} />}
+                      {block.name && <span className="text-[10px] font-black text-white uppercase tracking-tight">{block.name}</span>}
+                      {block.size && <div className="ml-auto w-12 h-1 bg-white/20 rounded-full" />}
                     </motion.div>
                   ))}
                 </div>
@@ -930,17 +1350,33 @@ function GameEngine({ game, onExit }: { game: GameDefinition, onExit: () => void
                       key={block.id}
                       whileHover={{ y: -8, scale: 1.05 }}
                       onClick={() => handleBlockPlace(block)}
-                      style={{ width: `${block.size * 40}px`, backgroundColor: block.color }}
-                      className="h-12 rounded-lg border-2 border-white/20 shadow-xl flex items-center justify-center text-xs font-black text-bg uppercase"
+                      style={block.size ? { width: `${block.size * 40}px`, backgroundColor: block.color } : { backgroundColor: block.color }}
+                      className={`h-14 px-5 rounded-2xl border-2 border-white/40 shadow-xl flex items-center justify-center gap-2 text-xs font-black text-white uppercase transition-all ${!block.size ? 'min-w-[120px]' : ''} ${
+                        clickFeedback?.id === block.id && clickFeedback.type === 'correct' ? 'scale-110 !bg-neon-green' :
+                        clickFeedback?.id === block.id && clickFeedback.type === 'incorrect' ? 'animate-shake !bg-yellow-400' : ''
+                      }`}
                     >
-                      {block.size}
+                      {block.type && <Pictogram term={block.type} size={24} />}
+                      <span className="drop-shadow-sm">{block.name || block.size}</span>
                     </motion.button>
                   ))}
                 </div>
                 <div className="flex items-center gap-2 text-[10px] font-mono text-text-dim uppercase tracking-[3px]">
-                  <Layers size={14} /> ORDENA DE MAYOR A MENOR
+                  <Layers size={14} /> {gameId.includes('pasteles') || gameId.includes('hanoi') ? 'ORDENA DE MAYOR A MENOR' : 'ORDENA LA SECUENCIA'}
                 </div>
               </div>
+            )}
+
+            {(gameStatus === 'won' || gameStatus === 'lost') && (
+              <GameResult 
+                status={gameStatus} 
+                score={Math.round(score)}
+                onRetry={() => {
+                  resetAll();
+                  setGameStatus('playing');
+                }}
+                onExit={onExit}
+              />
             )}
           </motion.div>
         )}
@@ -949,7 +1385,7 @@ function GameEngine({ game, onExit }: { game: GameDefinition, onExit: () => void
   );
 }
 
-function GameResult({ status, onRetry, onExit }: { status: 'won' | 'lost', onRetry: () => void, onExit: () => void }) {
+function GameResult({ status, score, onRetry, onExit }: { status: 'won' | 'lost', score: number, onRetry: () => void, onExit: () => void }) {
   return (
     <motion.div 
       initial={{ opacity: 0, scale: 0.9 }}
@@ -962,8 +1398,9 @@ function GameResult({ status, onRetry, onExit }: { status: 'won' | 'lost', onRet
             <CheckCircle2 className="text-neon-green w-10 h-10" />
           </div>
           <div className="space-y-1">
-            <h3 className="text-2xl font-extrabold text-neon-green uppercase tracking-tighter">Simulación Éxito</h3>
-            <p className="text-text-dim text-xs">Entrenamiento completado satisfactoriamente.</p>
+            <h3 className="text-2xl font-serif font-bold text-neon-green uppercase tracking-tight">¡Misión Cumplida!</h3>
+            <p className="text-text-dim text-xs">Puntuación: <span className="text-slate-800 font-bold">{score}</span></p>
+            <p className="text-text-dim text-xs">Has completado esta aventura literaria con éxito.</p>
           </div>
         </>
       ) : (
@@ -972,8 +1409,9 @@ function GameResult({ status, onRetry, onExit }: { status: 'won' | 'lost', onRet
             <AlertCircle className="text-neon-red w-10 h-10" />
           </div>
           <div className="space-y-1">
-            <h3 className="text-2xl font-extrabold text-neon-red uppercase tracking-tighter">Fallo de Sistema</h3>
-            <p className="text-text-dim text-xs">Se ha detectado una interferencia crítica.</p>
+            <h3 className="text-2xl font-serif font-bold text-neon-red uppercase tracking-tight">¡Casi lo logras!</h3>
+            <p className="text-text-dim text-xs">Puntuación final: <span className="text-slate-800 font-bold">{score}</span></p>
+            <p className="text-text-dim text-xs">El misterio sigue sin resolverse. ¿Lo intentas de nuevo?</p>
           </div>
         </>
       )}
